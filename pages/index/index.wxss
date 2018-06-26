@@ -1,0 +1,46 @@
+/**index.wxss**/
+
+#locate {
+  margin-top: 200rpx;
+  align-self: baseline;
+  color: #00cb58;
+  text-align: center;
+  position: absolute;
+  font-size: 13px;
+  right: 30rpx;
+  background: white;
+  border-radius: 50%;
+  border: solid 1px #00cb58;
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+
+#find_palce {
+  margin-top: 100rpx;
+  line-height: 70rpx;
+  color: grey;
+  text-align: center;
+  align-self: center;
+  font-size: 13px;
+  right: 30rpx;
+  opacity: 0.8;
+  background: #fff;
+  border-radius: 10rpx;
+  border: solid 1px #fff;
+  width: 80%;
+  height: 70rpx;
+}
+
+.map_container {
+  position: absolute;
+  top: 0;
+  bottom: 0rpx;
+  left: 0;
+  right: 0;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,9 @@
+<!--index.wxml-->
+
+<view class='container'>
+  <view class="map_container">
+    <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location="true" markers="{{markers}}" bindmarkertap="makertap" circles="{{cicle}}" bindregionchange="mapDrag"></map>
+  </view>
+  <cover-view id='locate' bindtap='onLocate'>定位</cover-view>
+  <cover-view id='find_palce' bindtap='onFindPlace'>您要去哪里?</cover-view>
+</view>

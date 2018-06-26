@@ -1,0 +1,16 @@
+/* pages/rented_parking/rented_parking.wxss */
+
+.btn {
+  color: gray;
+  margin-top: 50rpx;
+  text-align: center;
+  line-height: 90rpx;
+  height: 90rpx;
+  width: 300rpx;
+  border-radius: 30rpx;
+  background: wheat;
+}
+
+.btn:active {
+  background: #f3cec3;
+}
