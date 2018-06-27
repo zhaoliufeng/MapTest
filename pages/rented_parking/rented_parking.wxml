@@ -1,7 +1,11 @@
 <!--pages/rented_parking/rented_parking.wxml-->
 <view class='container'>
+  <view class='btn' bindtap='onGetConnect'>连接设备</view>
+  <view class='btn' bindtap='onGetDisConnect'>断开连接</view>
   <view class='btn' bindtap='onGetToken'>获取token</view>
   <view id='btn_locked' class='btn' bindtap='onLocked'>升锁</view>
   <view id='btn_unlocked' class='btn' bindtap='onUnlocked'>降锁</view>
   <view class='btn' bindtap='onGetState'>获取锁状态</view>
+  <view class='btn' bindtap='onGetBatteryState'>获取锁电量</view>
+  <view class='btn' bindtap='onGetIMEI'>获取IMEI</view>
 </view>

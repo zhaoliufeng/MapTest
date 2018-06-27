@@ -11,13 +11,22 @@ Page({
   onLoad: function(options) {
     //判断蓝牙状态前需要先开启蓝牙
     Ble.openBleAdapter();
+  },
+
+  onGetConnect:function(){
     Ble.connectToDevice({
-      success: function(item) {
+      success: function (item) {
         console.log("连接设备 " + item.name + " 成功")
         // Ble.sendMsg(Dec.Encrypt(OpOrder.getToken()))
-
       }
     });
+  },
+
+  onGetDisConnect:function(){
+    wx.closeBLEConnection({
+      deviceId: '',
+      success: function(res) {},
+    })
   },
 
   onLocked: function() {
@@ -39,6 +48,16 @@ Page({
   onGetState: function(){
     console.log('获取锁状态')
     Ble.sendMsg(Dec.Encrypt(OpOrder.getState()))
+  },
+
+  onGetBatteryState:function(){
+    console.log('获取锁电量')
+    Ble.sendMsg(Dec.Encrypt(OpOrder.getBatteryState()))
+  },
+
+  onGetIMEI:function(){
+    console.log('获取IMEI')
+    Ble.sendMsg(Dec.Encrypt(OpOrder.getIMEI()))
   }
 
 })

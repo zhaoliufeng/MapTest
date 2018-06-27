@@ -91,7 +91,7 @@ class Bluetooth {
                         function ab2hex(buffer) {
                           var hexArr = Array.prototype.map.call(
                             new Uint8Array(buffer),
-                            function (bit) {
+                            function(bit) {
                               return ('00' + bit.toString(16)).slice(-2)
                             }
                           )
@@ -99,14 +99,22 @@ class Bluetooth {
                         }
 
                         wx.onBLECharacteristicValueChange(function(res) {
-                          console.log("notify通道发生改变")
-                          console.log(`characteristic ${res.characteristicId} has changed, now is ${res.value}`)
+                          console.log(`notify通道发生改变 通道ID -> ${res.characteristicId}`)
                           var resStr = Dec.Decrypt(ab2hex(res.value))
-                          console.log(resStr)
-                          if (resStr.indexOf("060207") == 0){
+                          console.log("接收数据 => " + resStr)
+                          //token上报标识头 060207
+                          if (resStr.indexOf("060207") == 0) {
                             //获取到的token
                             getApp().token = resStr.substring(6, 14)
-                            console.log(getApp().token)
+                            console.log("读取到Token值 -> " + getApp().token)
+                          }
+                          //获取到IMEI
+                          if(resStr.indexOf("fa0606") == 0){
+                            console.log("读取到IMEI值 -> " + resStr.substring(8, 24))
+                          }
+
+                          if(resStr.indexOf("020201") == 0){
+                            console.log("读取到电量 ->" + resStr.substring(6, 8))
                           }
                         })
                       },
@@ -131,12 +139,21 @@ class Bluetooth {
     })
   }
 
+  static disconnect() {
+    wx.closeBLEConnection({
+      deviceId: deviceId,
+      success: function (res) { 
+        console.log("成功断开连接")
+      },
+    })
+  }
   //发送蓝牙数据
   static sendMsg(hex) {
+    console.log("发送数据 HexString -> " + hex)
     var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function(h) {
       return parseInt(h, 16)
     }))
-    console.log(typedArray)
+    console.log("发送数据 加密后数组 -> " + typedArray)
     var buffer = typedArray.buffer
 
     wx.writeBLECharacteristicValue({
