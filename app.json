@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/rented_parking/rented_parking",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/my_parking/my_parking"
+    "pages/account/account",
+    "pages/my_parking/my_parking",
+    "pages/rented_parking/rented_parking",
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -17,34 +18,28 @@
         "pagePath": "pages/index/index",
         "selectedIconPath": "img/search_parking_select.png",
         "iconPath": "img/search_parking_normal.png",
-        "text": "搜索车位",
-        "color": "#eee",
-        "selectedColor": "#2a62ff"
+        "text": "搜索车位"
       },
       {
         "pagePath": "pages/rented_parking/rented_parking",
         "selectedIconPath": "img/rented_parking_select.png",
         "iconPath": "img/rented_parking_normal.png",
-        "text": "已租车位",
-        "color": "#eee",
-        "selectedColor": "#2a62ff"
+        "text": "已租车位"
       },
       {
         "pagePath": "pages/my_parking/my_parking",
         "selectedIconPath": "img/mine_parking_select.png",
         "iconPath": "img/mine_parking_normal.png",
-        "text": "我的车位",
-        "color": "#eee",
-        "selectedColor": "#2a62ff"
+        "text": "我的车位"
       },
       {
-        "pagePath": "pages/my_parking/my_parking",
-        "selectedIconPath": "img/icon_data_sel.png",
-        "iconPath": "img/icon_data_def.png",
-        "text": "账户",
-        "color": "#eee",
-        "selectedColor": "#2a62ff"
+        "pagePath": "pages/account/account",
+        "selectedIconPath": "img/account_selected.png",
+        "iconPath": "img/account_normal.png",
+        "text": "账户"
       }
-    ]
+    ],
+    "color": "#bbb",
+    "selectedColor": "#FD7543"
   }
 }

@@ -2,8 +2,34 @@
 
 <view class='container'>
   <view class="map_container">
-    <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" show-location="true" markers="{{markers}}" bindmarkertap="makertap" circles="{{cicle}}" bindregionchange="mapDrag"></map>
+    <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" show-location="true" markers="{{markers}}" bindmarkertap="makertap" bindtap='maptap' circles="{{cicle}}" bindregionchange="mapDrag"></map>
   </view>
-  <cover-view id='locate' bindtap='onLocate'>定位</cover-view>
+ 
+  <cover-view id='cv_locate' style='margin-top: {{locatMarginTop}};'>
+    <cover-image id='locate' bindtap='onLocate' src='../../img/locate.png'></cover-image>
+  </cover-view>
+
+
   <cover-view id='find_palce' bindtap='onFindPlace'>您要去哪里?</cover-view>
+
+  <cover-view id='lock_info' wx:if="{{showLockInfo}}">
+    <cover-view id='lock_info_detail'>
+      <cover-view id='cv_lock_type'>
+        <cover-image src='../../img/account_selected.png' id='lock_info_type'></cover-image>
+      </cover-view>
+      <cover-view id='cv_address'>宝安区西乡街道双龙花园17栋2单元311</cover-view>
+      <cover-view id='cv_dis_price'>
+        <cover-view id='cv_distance'>
+          1000米
+        </cover-view>
+        <cover-view id='cv_price'>
+          4元/小时
+        </cover-view>
+      </cover-view>
+    </cover-view>
+
+    <cover-view id='cv_action'>
+
+    </cover-view>
+  </cover-view>
 </view>
