@@ -2,6 +2,7 @@ var serviceId = '0000FEE7-0000-1000-8000-00805F9B34FB'
 var wirteCharacteristicId = '000036F5-0000-1000-8000-00805F9B34FB'
 var notiyCharacteristicId = '000036F6-0000-1000-8000-00805F9B34FB'
 var deviceId
+var Dec = require('aesUnits.js');
 
 class Bluetooth {
 
@@ -62,10 +63,6 @@ class Bluetooth {
             wx.createBLEConnection({
               deviceId: item.deviceId,
               success: function(res) {
-                if(call != undefined){
-                  call(item)
-                }
-                
                 //查询服务 代码可以注释
                 wx.getBLEDeviceServices({
                   deviceId: item.deviceId,
@@ -74,27 +71,50 @@ class Bluetooth {
                       deviceId: item.deviceId,
                       serviceId: serviceId,
                       success: function(res) {
-                        console.log("成功读取特征值 " + res.characteristics.toString())
+                        console.log("成功读取特征值")
+                        //添加notify监听
+                        wx.notifyBLECharacteristicValueChange({
+                          deviceId: deviceId,
+                          serviceId: serviceId,
+                          characteristicId: notiyCharacteristicId,
+                          state: true,
+                          success: function(res) {
+                            console.log("开启notify成功")
+                            call(item)
+                          },
+                          fail: function(res) {
+                            console.log(res.errMsg)
+                          }
+                        })
+
+                        // ArrayBuffer转16进度字符串示例
+                        function ab2hex(buffer) {
+                          var hexArr = Array.prototype.map.call(
+                            new Uint8Array(buffer),
+                            function (bit) {
+                              return ('00' + bit.toString(16)).slice(-2)
+                            }
+                          )
+                          return hexArr.join('');
+                        }
+
+                        wx.onBLECharacteristicValueChange(function(res) {
+                          console.log("notify通道发生改变")
+                          console.log(`characteristic ${res.characteristicId} has changed, now is ${res.value}`)
+                          var resStr = Dec.Decrypt(ab2hex(res.value))
+                          console.log(resStr)
+                          if (resStr.indexOf("060207") == 0){
+                            //获取到的token
+                            getApp().token = resStr.substring(6, 14)
+                            console.log(getApp().token)
+                          }
+                        })
                       },
                       fail: function(res) {
                         console.log(res.errMsg)
                       }
                     })
                   },
-                })
-
-                //添加notify监听
-                wx.notifyBLECharacteristicValueChange({
-                  deviceId: deviceId,
-                  serviceId: serviceId,
-                  characteristicId: notiyCharacteristicId,
-                  state: true,
-                  success: function(res) {},
-                })
-
-                wx.onBLECharacteristicValueChange(function(res) {
-                  console.log(`characteristic ${res.characteristicId} has changed, now is ${res.value}`)
-                  console.log(ab2hext(res.value))
                 })
               },
               fail: function(res) {
@@ -113,10 +133,6 @@ class Bluetooth {
 
   //发送蓝牙数据
   static sendMsg(hex) {
-    if (deviceId == undefined) {
-      console.log("deviceId为空，未连接设备")
-      return
-    }
     var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function(h) {
       return parseInt(h, 16)
     }))
@@ -147,14 +163,6 @@ class Bluetooth {
 }
 
 
-function ab2hex(buffer) {
-  var hexArr = Array.prototype.map.call(
-    new Uint8Array(buffer),
-    function(bit) {
-      return ('00' + bit.toString(16)).slice(-2)
-    }
-  )
-  return hexArr.join('');
-}
+
 
 module.exports = Bluetooth

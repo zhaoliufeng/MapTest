@@ -1,6 +1,5 @@
 //index.js
 //获取应用实例
-const app = getApp()
 var amapFile = require('../../libs/amap-wx.js')
 var amap = require('../../utils/amap.js')
 
@@ -26,7 +25,7 @@ Page({
       longitude: '116.46',
       color:'ffffffff',
       fillColor:'7f000000',
-      radius:1000,
+      radius:2000,
       strokeWidth:'3'
     }],
     latitude: '22.55329',
@@ -61,7 +60,7 @@ Page({
             longitude: res.longitude,
             color: 'ffffffff',
             fillColor: '#7cb5ec88',
-            radius: 1000,
+            radius: 2000,
             strokeWidth: '3'
           }]
         })
@@ -87,7 +86,7 @@ Page({
             longitude: res.longitude,
             color: 'ffffffff',
             fillColor: '#7cb5ec88',
-            radius: 1000,
+            radius: 2000,
             strokeWidth: '3'
           }]
         })

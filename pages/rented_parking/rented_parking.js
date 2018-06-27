@@ -14,26 +14,31 @@ Page({
     Ble.connectToDevice({
       success: function(item) {
         console.log("连接设备 " + item.name + " 成功")
+        // Ble.sendMsg(Dec.Encrypt(OpOrder.getToken()))
+
       }
     });
   },
 
   onLocked: function() {
     console.log('升锁')
-    console.log(Dec.Encrypt(OpOrder.getToken()))
+    Ble.sendMsg(Dec.Encrypt(OpOrder.lock()))
   },
 
   onUnlocked: function() {
     console.log('降锁')
-    // Ble.getId(function(id){
-    //   console.log(id)
-    // })
+    Ble.sendMsg(Dec.Encrypt(OpOrder.unLock()))
 
-    Ble.getId({
-      deviceId: 2,
-      callBack: function(id) {
-        console.log(id)
-      }
-    })
   },
+
+  onGetToken: function(){
+    console.log('获取token')
+    Ble.sendMsg(Dec.Encrypt(OpOrder.getToken()))
+  },
+
+  onGetState: function(){
+    console.log('获取锁状态')
+    Ble.sendMsg(Dec.Encrypt(OpOrder.getState()))
+  }
+
 })
